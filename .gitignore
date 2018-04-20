@@ -1,4 +1,4 @@
-input/
-output/
+input/*
+output/*
 src/viewer.py
 !.gitkeep
