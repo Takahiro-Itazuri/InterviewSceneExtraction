@@ -12,37 +12,21 @@ def parser():
 
 	return parser.parse_args()
 
-if __name__=="__main__":
-	# parse command line arguments
-	args = parser()
-	paths = glob.glob("../input/" + args.i + ".*")
-
+def ShotBoundaryDetection(ifilename, lower_thr=0.1, upper_thr=0.5):
+	paths = glob.glob("../input/" + ifilename + ".*")
+	
 	# set up
 	if not os.path.exists(paths[0]):
-		print(args.i + " does not exist in the input directory.")
+		print(ifilename + " does not exist in the input directory.")
 	else:
 		input_path = paths[0]
-		output_path = "../output/" + args.i + "/shot/"
+		output_path = "../output/" + ifilename + "/shot/"
 
 		if not os.path.exists(output_path):
 			os.makedirs(output_path)
 
 		print("input : " + input_path)
 		print("output: " + output_path)
-
-		# threshold setting
-		lower_thr = 0
-		upper_thr = 0
-
-		if args.l == None:
-			lower_thr = 0.1
-		else:
-			lower_thr = args.l
-
-		if args.u == None:
-			upper_thr = 0.5
-		else:
-			upper_the = args.u
 
 		# initialization
 		cap = cv2.VideoCapture(input_path)
@@ -90,3 +74,12 @@ if __name__=="__main__":
 
 		writer.release()
 		cap.release()
+
+if __name__=="__main__":
+	# parse command line arguments
+	args = parser()
+	if args.i != None:
+		if (args.l != None) and (args.u != None):
+			ShotBoundaryDetection(args.i, args.l, args.u)
+		else:
+			ShotBoundaryDetection(args.i)

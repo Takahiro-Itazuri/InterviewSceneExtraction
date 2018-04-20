@@ -11,18 +11,12 @@ def parser():
 
 	return parser.parse_args()
 
-if __name__=="__main__":
-	args = parser()
-
-	if not os.path.exists("../output/" + args.i + "/result/"):
+def InterviewSelection(ifilename, sec):
+	if not os.path.exists("../output/" + ifilename + "/result/"):
 		print(args.i + " directory does not have result directory")
 	else:
-		sec = 3
-		if args.s != None:
-			sec = args.s
-
-		input_path = "../output/" + args.i + "/result/"
-		output_path = "../output/" + args.i + "/{}/".format(sec)
+		input_path = "../output/" + ifilename + "/result/"
+		output_path = "../output/" + ifilename + "/{}/".format(sec)
 
 		if not os.path.exists(output_path):
 			os.makedirs(output_path)
@@ -46,3 +40,12 @@ if __name__=="__main__":
 				file_idx += 1
 
 			cap.release()
+
+if __name__=="__main__":
+	args = parser()
+
+	if args.i != None:
+		sec = 3
+		if args.s != None:
+			sec = args.s
+		InterviewSelection(args.i, sec)

@@ -12,16 +12,13 @@ def parser():
 		
 	return parser.parse_args()
 
-if __name__=="__main__":
-	# parse command line arguments
-	args = parser()
-
+def InterviewDetection(ifilename):	
 	# set up
-	if not os.path.exists("../output/" + args.i + "/shot/"):
+	if not os.path.exists("../output/" + ifilename + "/shot/"):
 		print(args.i + " directory does not have shot directory.")
 	else:
-		input_path = "../output/" + args.i + "/shot/"
-		output_path = "../output/" + args.i + "/result/"
+		input_path = "../output/" + ifilename + "/shot/"
+		output_path = "../output/" + ifilename + "/result/"
 
 		if not os.path.exists(output_path):
 			os.makedirs(output_path)
@@ -74,8 +71,11 @@ if __name__=="__main__":
 				shutil.copy(fname, output_path + "{0:04d}.avi".format(file_idx))
 				file_idx += 1
 				print("interview")
-			#cv2.imshow(fname, avg_img)
-			#cv2.waitKey(0)
 
 			cap.release()
-			#cv2.destroyAllWindows()
+
+if __name__=="__main__":
+	# parse command line arguments
+	args = parser()
+	if args.i != None:
+		InterviewDetection(args.i)
